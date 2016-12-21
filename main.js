@@ -1,21 +1,4 @@
 //restaurant food items
-class Drink {
-    constructor(drinkType){
-        this.name = drinkType.name;
-        this.description = drinkType.description;
-        this.price = drinkType.price;
-        this.ingredients = drinkType.ingredients;
-    }
-    stringify() {
-        
-    }
-}
-
-var mojito = new Drink({
-    name: 'mojito',
-    description: '',
-    price: 1.00
-})
 
 class Plate {
     constructor(plateType){
@@ -25,26 +8,56 @@ class Plate {
         this.ingredients = plateType.ingredients;
     } 
     stringify() {
-        return 'The ' + this.name + ' has been described as ' + this. description + ' by previous customers that enjoyed this plate. This plate costs only $' + this.price + '.'
-            
-//             ' is ' + veganPart + ', ' + glutenPart + ', and ' + citrusPart + '.' + ' The ' + this.name + ' contains only ' + this.calories + ' calories.'
+        return 'The ' + this.name + ' has been described as ' + this. description + ' by previous customers that enjoyed this plate. This plate costs only $' + this.price + '.';
+
 
     }
+    isVegan() {
+       for (var i = 0; i < this.ingredients.length; i++) {
+           console.log(this.ingredients[i].name + ': ' + this.ingredients[i].vegan)
+           if (!this.ingredients[i].vegan) {
+            console.log(false)
+            return false;
+        }
+       }
+        return true;
+   }
+    isGlutenFree() {
+       for (var i = 0; i < this.ingredients.length; i++) {
+           console.log(this.ingredients[i].name + ': ' + this.ingredients[i].glutenFree )
+           if (!this.ingredients[i].glutenFree ) {
+            console.log(false)
+            return false;
+        }
+       }
+        return true;
+   }
+   isCitrusFree() {
+       for (var i = 0; i < this.ingredients.length; i++) {
+           console.log(this.ingredients[i].name + ': ' + this.ingredients[i].citrusFree )
+           if (!this.ingredients[i].citrusFree ) {
+            console.log(false)
+            return false;
+        }
+       }
+        return true;
+   }
 }   
 
-var burrito = new Plate({
-    name : 'breakfast Burrito',
-    description : 'smothered and cheesy, clothed in the finest tortilla in all the land.',
-    price: 10,
-    ingredients: []
-})
+class Drink extends Plate {
+    constructor (drinkType){
+        super(drinkType)
+    }
+//     stringify() {
+        
+//     }
+}
 
-var guacamolePlate = new Plate({
-    name : 'Guacamole Plate',
-    description : 'well, its green and creamy. Sometimes it chunky depending on who made it.',
-    price: 8,
-    ingredients: []
-})
+
+
+
+
+
 
 class Order {
     constructor(orderType){
@@ -61,10 +74,13 @@ class Menu {
     }
 }
 
+
+
 class Restaurant {
     constructor(restType){
         this.name = restType.name;
         this.description = restType.description;
+        this.menu = restType.menu;
     }
     stringify() {
         
@@ -117,7 +133,7 @@ class FoodItem {
     } 
 }
 
-var appleFritter = new FoodItem({
+var appleFritter = new Plate({
     name : 'Apple Fritter',
     calories : 450,
     vegan : false,
@@ -125,42 +141,182 @@ var appleFritter = new FoodItem({
     citrusFree : true,
 });
 
-var eggsBenedict = new FoodItem({
-    name : 'Eggs Benedict',
-    calories : 600,
+
+// burrito plate here
+
+
+var tortilla = new FoodItem({
+    name : 'tortilla',
+    calories : 200,
     vegan : false,
     glutenFree : false,
     citrusFree : true,
 });
+var beans = new FoodItem({
+    name : 'beans',
+    calories : 50,
+    vegan : true,
+    glutenFree : true,
+    citrusFree : true,
+});
+var eggs = new FoodItem({
+    name : 'eggs',
+    calories : 160,
+    vegan : false,
+    glutenFree : true,
+    citrusFree : true,
+});
+var potatoes = new FoodItem({
+    name : 'potatoes',
+    calories : 120,
+    vegan : true,
+    glutenFree : true,
+    citrusFree : true,
+});
+var cilantro = new FoodItem({
+    name : 'cilantro',
+    calories : 5,
+    vegan : true,
+    glutenFree : true,
+    citrusFree : false,
+});
+var cheese = new FoodItem({
+    name : 'cheese',
+    calories : 220,
+    vegan : false,
+    glutenFree : true,
+    citrusFree : true,
+});
+var chicken = new FoodItem({
+    name : 'chicken',
+    calories : 180,
+    vegan : false,
+    glutenFree : true,
+    citrusFree : false,
+});
 
-var quinoaCranberrySalad = new FoodItem({
+var burrito = new Plate({
+    name : 'Breakfast Burrito',
+    description : 'smothered and cheesy, clothed in the finest tortilla in all the land.',
+    price : 25,
+    ingredients : [tortilla, beans, eggs, potatoes, cilantro, cheese, chicken],
+});
+
+
+//guacamole plate
+
+var avocado = new FoodItem({
+    name : 'avocado',
+    calories : 80,
+    vegan : true,
+    glutenFree : true,
+    citrusFree : true,
+});
+var tomato = new FoodItem({
+    name : 'tomato',
+    calories : 5,
+    vegan : true,
+    glutenFree : true,
+    citrusFree : true,
+});
+var onion = new FoodItem({
+    name : 'onion',
+    calories : 30,
+    vegan : true,
+    glutenFree : true,
+    citrusFree : true,
+});
+var garlic = new FoodItem({
+    name : 'garlic',
+    calories : 10,
+    vegan : true,
+    glutenFree : true,
+    citrusFree : true,
+});
+
+var guacamole = new Plate({
+    name : 'Breakfast Guacamole',
+    description : "well, its green and creamy. Sometimes it chunky depending on who made it.",
+    price : 12,
+    ingredients : [avocado, tomato, onion, garlic, cilantro],
+});
+
+//cranberry salad
+
+var quinoa = new FoodItem({
+    name : 'quinoa',
+    calories : 50,
+    vegan : true,
+    glutenFree : true,
+    citrusFree : true,
+});
+
+var cranberries = new FoodItem({
+    name : 'cranberries',
+    calories : 35,
+    vegan : true,
+    glutenFree : true,
+    citrusFree : true,
+});
+
+var lettuce = new FoodItem({
+    name : 'lettuce',
+    calories : 30,
+    vegan : false,
+    glutenFree : true,
+    citrusFree : true,
+});
+
+var quinoaCranberrySalad = new Plate({
     name : 'Quinoa Cranberry Salad',
-    calories : 178,
+    description : 'true',
+    price : 9,
+    ingredients : [quinoa, cranberries, lettuce],
+});
+
+
+//Drink
+
+var tequila = new FoodItem({
+    name : 'tequila',
+    calories : 50,
+    vegan : true,
+    glutenFree : true,
+    citrusFree : true,
+});
+var tripleSec = new FoodItem({
+    name : 'triple Sec',
+    calories : 50,
+    vegan : true,
+    glutenFree : true,
+    citrusFree : true,
+});
+var limeJuice = new FoodItem({
+    name : 'lime juice',
+    calories : 5,
     vegan : true,
     glutenFree : true,
     citrusFree : false,
 });
 
-
-// Our apple fritter is not vegan free, is not gluten free but is citrus free with only 450 calories.
-
-// if vegan = true then, return 'vegan friendly' else return 'not a vegan dish'
-
-// if gluten free = true then, return 'gluten free' else return 'contains gluten'
-
-// if citrus free = true then, return 'citrus free' else return 'has citrus in it'
-
-// Our + this.name + 'is' + if vegan=false, then n
+var margarita = new Drink({
+    name: 'Margarita',
+    description: 'Yuuuum, but we limit you to two',
+    price: 11.00,
+    ingredients : [tequila, tripleSec, limeJuice],
+})
 
 
-console.log("Apple Fritters are life!")
+var menuPlates = new Menu({
+    plates : [burrito, guacamole, margarita],
+});
 
 
-
-
-
-
-
+var restaurantMenu = new Restaurant({
+    menu : menuPlates,
+    name : "Aaron's Breakfast Joint",
+    description : "A new take on breakfast, just from Aaron."
+});
 
 
 
